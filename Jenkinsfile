@@ -17,12 +17,7 @@ properties([
                     classpath: [], 
                     sandbox: true, 
                     script: """
-                        if (ENVIRONMENT == 'lab') { 
-                            return['aaa','bbb']
-                        }
-                        else {
-                            return['ccc', 'ddd']
-                        }
+                      siteChoices()
                     """.stripIndent()
                 ]
             ]
@@ -45,3 +40,14 @@ pipeline {
         }
     }
 }
+
+
+def siteChoices() {
+	  if (ENVIRONMENT == 'lab') { 
+                            return['aaa','bbb']
+                        }
+                        else {
+                            return['ccc', 'ddd']
+                        }
+				}
+	}
