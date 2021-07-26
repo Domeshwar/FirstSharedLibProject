@@ -5,8 +5,6 @@ properties([
         [$class: 'CascadeChoiceParameter', 
             choiceType: 'PT_SINGLE_SELECT',
             description: 'Select a choice',
-            filterLength: 1,
-            filterable: true,
             name: 'choice1',
             referencedParameters: 'ENVIRONMENT',
             script: [$class: 'GroovyScript',
