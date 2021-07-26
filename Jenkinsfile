@@ -50,4 +50,3 @@ def siteChoices() {
                             return['ccc', 'ddd']
                         }
 				}
-	}
