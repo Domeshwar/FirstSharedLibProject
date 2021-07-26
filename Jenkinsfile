@@ -1,41 +1,37 @@
 pipeline {
-    agent any
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '10'))
-        disableConcurrentBuilds()
-        timeout(time: 90, unit: 'MINUTES')
-    }
-
- parameters {
-         activeChoiceParam('choice1') {
-                      description('select your choice')
-                      choiceType('RADIO')
-                      groovyScript {
-                          script('return["aaa","bbb"]')
-                          fallbackScript('return ["error"]')
-                      }
+agent any
+stages {
+    stage('Parameters'){
+        steps {
+            script {
+            properties([
+                    parameters([
+                        [$class: 'ChoiceParameter',
+                            choiceType: 'PT_SINGLE_SELECT',
+                            description: 'Select the Environemnt from the Dropdown List',
+                            filterLength: 1,
+                            filterable: false,
+                            name: 'Env',
+                            script: [
+                                $class: 'GroovyScript',
+                                fallbackScript: [
+                                    classpath: [],
+                                    sandbox: false,
+                                    script:
+                                        "return['Could not get The environemnts']"
+                                ],
+                                script: [
+                                    classpath: [],
+                                    sandbox: false,
+                                    script:
+                                        "return['dev','stage','prod']"
+                                ]
+                            ]
+                        ]
+                    ])
+                ])
+            }
         }
-        activeChoiceReactiveParam('choice2') {
-                      description('select your choice')
-                      choiceType('RADIO')
-                      groovyScript {
-                          script(' if(choice1.equals("aaa")) { return ["a", "b"] } else {return ["aaaaaa","fffffff"] } ')
-                          fallbackScript('return ["error"]')
-                      }
-                      referencedParameter('choice1')
-        }
-		}
-    stages {
-	
-  		stage("Declaring Environment Variables") {
-		    
-            steps {
-                script {
-                  
-				  echo "I am cool"
-
-                }
     }
-	}
-	}
+}
 }
