@@ -1,0 +1,17 @@
+@Library('SharedLibraries') 
+pipeline {
+    agent any
+
+
+    parameters {
+        choice name:'country1', choices:['india', 'srilanka','pakistan'], description: 'Tell me name of capital'
+    }
+    stages {
+        stage("Run Tests") {
+            steps {
+                ind = india country: "${country1}"
+                echo ${ind}
+            }
+        }
+    }
+}
