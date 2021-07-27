@@ -9,8 +9,8 @@ pipeline {
     stages {
         stage("Run Tests") {
             steps {
-                ind = india country: "${country1}"
-                echo "${ind}"
+                Ind = india country: "${country1}"
+                echo "${Ind}"
                 }
         }
     }
