@@ -9,9 +9,11 @@ pipeline {
     stages {
         stage("Run Tests") {
             steps {
-                Ind = india country: "${country1}"
-                echo "${Ind}"
-                }
+
+               script{
+               log.info 'Starting'
+               log.warning 'Nothing to do!'
+               }
         }
     }
 }
