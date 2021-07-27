@@ -15,6 +15,7 @@ pipeline {
                log.warning 'Nothing to do!'
                }
         }
+		}
         
         stage("Validate india Capital")
         {
