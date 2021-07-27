@@ -16,7 +16,14 @@ properties([
                 script: [
                     classpath: [], 
                     sandbox: true, 
-                    script: getenvtypesbydatacenter.groovy
+                    script: """
+                        if (ENVIRONMENT == 'lab') { 
+                            return['aaa','bbb']
+                        }
+                        else {
+                            return['ccc', 'ddd']
+                        }
+                    """.stripIndent()
                 ]
             ]
         ]
