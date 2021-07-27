@@ -13,19 +13,11 @@ pipeline {
                script{
                log.info 'Starting'
                log.warning 'Nothing to do!'
+               india.Capital("${country1}")
                }
         }
 		}
         
-        stage("Validate india Capital")
-        {
-        script{
-        
-        india.Capital("${country1}")
-        
-        }
-        
-        }
     }
 }
 
