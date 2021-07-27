@@ -1,32 +1,17 @@
-environments = 'lab\nstage\npro'
-
 properties([
     parameters([
-        [$class: 'CascadeChoiceParameter', 
-            choiceType: 'PT_SINGLE_SELECT',
-            description: 'Select a choice',
-            name: 'choice1',
-            referencedParameters: 'ENVIRONMENT',
-            script: [$class: 'GroovyScript',
-                fallbackScript: [
-                    classpath: [], 
-                    sandbox: true, 
-                    script: 'return ["ERROR"]'
-                ],
-                script: [
-                    classpath: [], 
-                    sandbox: true, 
-                    script: """
-                        if (ENVIRONMENT == 'lab') { 
-                            return['aaa','bbb']
-                        }
-                        else {
-                            return['ccc', 'ddd']
-                        }
-                    """.stripIndent()
-                ]
+	      [
+            $class: 'ChoiceParameter', 
+            choiceType: 'PT_SINGLE_SELECT', 
+            name: 'DataCenter', 
+            randomName: 'datacenter-choice-parameter-102102304304506506', 
+            script: [
+                $class: 'ScriptlerScript', 
+                scriptlerScriptId:'getdatacenters.groovy',
+                fallbackScript: [ classpath: [], script: 'return ["N/A"]']
             ]
-        ]
+        ],
+
     ])
 ])
 
@@ -35,7 +20,7 @@ pipeline {
 
 
     parameters {
-        choice(name: 'ENVIRONMENT', choices: "${environments}")
+        choice(name: 'ENVIRONMENT', choices: "${DataCenter}")
     }
     stages {
         stage("Run Tests") {
